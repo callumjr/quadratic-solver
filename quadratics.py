@@ -11,41 +11,33 @@ def factorize_quadratic(a,b,c):
 
     print(f"Roots: {root1}, {root2}")
 
-    root1 = f"+{str(root1)[1:]}" if root1 <= 0 else f"-{str(root1)}" 
-    root2 = f"+{str(root2)[1:]}" if root2 <= 0 else f"-{str(root2)}"
-
-    print(f"Factorised: (x{(root1)})(x{root2})")
-
 quad = input('Enter the Quadratic: ')
 
-# reg ex to match quadratic
-match = re.search(r"([+-]?\d*)x\^2([+-]?\d*)x([+-]?\d*)", quad)
+abc_match = re.search(r"([+-]?\d*)x\^2([+-]?\d*)x([+-]?\d*)", quad)
 
-# extracting a b and c values
-if match:
-    a, b, c = match.groups()
-    # a needs to check for -x aswell
-    a = int(a) if a else 1
-    #check if b is just x then 1 or if no b then 0
+ac_match = re.search(r"([+-]?\d*)x\^2([+-]?\d*)", quad)
+
+
+if abc_match:
+    a, b, c = abc_match.groups()
+
+    a = int(a) if a and a != '-' else -1 if a == '-' else 1
     b = int(b) if b else 0
-    c = int(c) if c else 0
+    c = int(c) 
+    
     print(a,b,c)
     factorize_quadratic(a,b,c)
+
+
+elif ac_match:
+    a, c = ac_match.groups()
+
+    a = int(a) if a and a != '-' else -1 if a == '-' else 1
+    c = int(c)
+
+    print (a, 0, c)
+    factorize_quadratic(a, 0, c)
+
 else:
     print("Invalid input")
 
-
-
-# need to make sure it works for - coefficent of x^2
-# need to make sure it works for difference of two squares x^2-16
-
-
-
-def factors(x):
-    factor_list = []
-
-    for y in range(1,x +1):
-        if x % y == 0:
-            factor_list.append(y)
-
-    return factor_list
