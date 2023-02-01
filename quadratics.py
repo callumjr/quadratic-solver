@@ -17,17 +17,26 @@ abc_match = re.search(r"([+-]?\d*)x\^2([+-]?\d*)x([+-]?\d*)", quad)
 
 ac_match = re.search(r"([+-]?\d*)x\^2([+-]?\d*)", quad)
 
+ab_match = re.search(r"([+-]?\d*)x\^2([+-]?\d*)x", quad)
+
 
 if abc_match:
     a, b, c = abc_match.groups()
 
     a = int(a) if a and a != '-' else -1 if a == '-' else 1
     b = int(b) if b else 0
-    c = int(c) 
+    c = int(c) if c else 0
     
     print(a,b,c)
     factorize_quadratic(a,b,c)
 
+elif ab_match:
+    a, b = ab_match.groups()
+    a = int(a) if a and a != '-' else -1 if a == '-' else 1
+    b = int(c) if b else 0
+
+    print(a, b, 0)
+    factorize_quadratic(a, b, 0)
 
 elif ac_match:
     a, c = ac_match.groups()
@@ -41,3 +50,5 @@ elif ac_match:
 else:
     print("Invalid input")
 
+# reg ex cares about case 
+# can i get all the reg ex into one 
